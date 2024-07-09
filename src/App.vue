@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import Button from './components/Button/Button.vue'
+import Message from './components/Message';
 
 </script>
 
 <template>
   <main>
     <Button ref="buttonRef">Test Button</Button>
+
+    <Message message="您有新的订单，请注意查收!" showClose />
   </main>
 </template>
 
