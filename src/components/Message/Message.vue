@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, withDefaults, defineOptions, onMounted } from "vue";
+import { ref, defineProps, withDefaults, defineOptions, onMounted, watch } from "vue";
 import RenderVnode from "../Common/RenderVnode";
 import Icon from '../Icon/Icon.vue'
 import type { MessageProps } from "./types";
@@ -45,6 +45,16 @@ function startTimer() {
     visible.value = false;
   }, props.duration);
 }
+
+function destroyComponent () {
+  props.onDestory()
+}
+
+watch(visible, (newVal) => {
+  if (!newVal) {
+    destroyComponent()
+  }
+})
 
 onMounted(async () => {
   visible.value = true;
