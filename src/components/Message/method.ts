@@ -1,5 +1,6 @@
 import { render, h, shallowReactive } from 'vue'
 import MessageConstructor from './Message.vue'
+import useZIndex from './useZIndex';
 import type { CreateMessageProps, MessageContext } from './types';
 
 let seed = 1
@@ -10,6 +11,8 @@ const instances: MessageContext[] = shallowReactive([])
 
 export const createMessage = (props: CreateMessageProps) => {
   // console.log('createMessage 执行');
+
+  const { nextZIndex } = useZIndex()
 
   const id = `message_${seed++}`
 
@@ -35,6 +38,7 @@ export const createMessage = (props: CreateMessageProps) => {
   const newProps = {
     ...props,
     id,
+    zIndex: nextZIndex(),
     onDestory: destory
   }
 

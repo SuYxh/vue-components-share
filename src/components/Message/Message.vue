@@ -80,6 +80,7 @@ const bottomOffset = computed(() => {
 
 const cssStyle = computed(() => ({
   top: topOffset.value + "px",
+  zIndex: props.zIndex
 }));
 
 function startTimer() {

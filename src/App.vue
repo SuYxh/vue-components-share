@@ -12,12 +12,16 @@ onMounted(() => {
   // createMessage({ message: 'hello world - 3', duration: 3000, showClose: true })
 
   // 测试手动删除
-  const instance = createMessage({ message: 'hello world - 4', duration: 5000, showClose: true })
-  setTimeout(() => {
-    instance.destory()
-  }, 2000);
-  createMessage({ message: 'hello world - 5', duration: 5000, showClose: true })
+  // const instance = createMessage({ message: 'hello world - 4', duration: 5000, showClose: true })
+  // setTimeout(() => {
+  //   instance.destory()
+  // }, 2000);
+  // createMessage({ message: 'hello world - 5', duration: 5000, showClose: true })
 
+  // z-index 测试
+  createMessage({ message: 'hello world - 6', duration: 0, showClose: true })
+  createMessage({ message: 'hello world - 7', duration: 0, showClose: true })
+  createMessage({ message: 'hello world - 8', duration: 0, showClose: true })
 })
 </script>
 
