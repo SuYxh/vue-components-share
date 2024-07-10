@@ -1,14 +1,19 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import Button from './components/Button/Button.vue'
-import Message from './components/Message';
+import Message, { createMessage } from './components/Message';
 
+
+onMounted(() => {
+  createMessage({ message: 'hello world', duration: 3000, showClose: true })
+})
 </script>
 
 <template>
   <main>
     <Button ref="buttonRef">Test Button</Button>
 
-    <Message message="您有新的订单，请注意查收!" showClose />
+    <!-- <Message message="您有新的订单，请注意查收!" showClose /> -->
   </main>
 </template>
 
