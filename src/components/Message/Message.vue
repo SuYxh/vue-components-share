@@ -38,6 +38,7 @@ import {
 import RenderVnode from "../Common/RenderVnode";
 import Icon from "../Icon/Icon.vue";
 import { getLastBottomOffset } from "./method";
+import useEventListener from './useEventListener';
 import type { MessageProps } from "./types";
 
 defineOptions({
@@ -99,6 +100,15 @@ watch(visible, (newVal) => {
     destroyComponent();
   }
 });
+
+function keydown(e: Event) {
+  const event = e as KeyboardEvent
+  if (event.code === 'Escape') {
+    visible.value = false
+  }
+}
+useEventListener(document, 'keydown', keydown)
+
 
 onMounted(async () => {
   // console.log('Message onMounted');

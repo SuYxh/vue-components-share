@@ -18,7 +18,7 @@ onMounted(() => {
   // }, 2000);
   // createMessage({ message: 'hello world - 5', duration: 5000, showClose: true })
 
-  // z-index 测试
+  // z-index 测试 、键盘关闭测试
   createMessage({ message: 'hello world - 6', duration: 0, showClose: true })
   createMessage({ message: 'hello world - 7', duration: 0, showClose: true })
   createMessage({ message: 'hello world - 8', duration: 0, showClose: true })
