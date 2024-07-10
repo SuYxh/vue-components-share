@@ -9,6 +9,8 @@
       [`vk-message--${type}`]: type,
       'is-close': showClose,
     }"
+    @mouseenter="clearTimer"
+    @mouseleave="startTimer"
   >
     <div class="vk-message__content">
       <slot>
@@ -83,6 +85,10 @@ const cssStyle = computed(() => ({
   top: topOffset.value + "px",
   zIndex: props.zIndex
 }));
+
+function clearTimer() {
+  clearTimeout(timer)
+}
 
 function startTimer() {
   if (props.duration === 0) return;
