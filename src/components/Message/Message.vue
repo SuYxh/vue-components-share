@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-console.log('Message setup');
+// console.log('Message setup');
 import {
   ref,
   defineProps,
@@ -56,7 +56,7 @@ let timer: any;
 const messageRef = ref<HTMLDivElement>();
 
 const instance = getCurrentInstance()
-console.log('Message-instance', instance);
+// console.log('Message-instance', instance);
 
 const visible = ref(false);
 // 计算偏移高度
@@ -64,17 +64,17 @@ const visible = ref(false);
 const height = ref(0);
 // 上一个实例的最下面的坐标数字，第一个是 0
 const lastOffset = computed(() => {
-  console.log('computed--lastOffset');
+  // console.log('computed--lastOffset');
   return getLastBottomOffset(props.id)
 });
 // 这个元素应该使用的 top
 const topOffset = computed(() => {
-  console.log('computed--topOffset');
+  // console.log('computed--topOffset');
   return props.offset + lastOffset.value
 });
 // 这个元素为下一个元素预留的 offset，也就是它最低端 bottom 的 值
 const bottomOffset = computed(() => {
-  console.log('computed--bottomOffset');
+  // console.log('computed--bottomOffset');
   return height.value + topOffset.value
 });
 
@@ -100,12 +100,12 @@ watch(visible, (newVal) => {
 });
 
 onMounted(async () => {
-  console.log('Message onMounted');
+  // console.log('Message onMounted');
   visible.value = true;
   startTimer();
   await nextTick()
   height.value = messageRef.value!.getBoundingClientRect().height
-  console.log('height.value', height.value);
+  // console.log('height.value', height.value);
 });
 
 defineExpose({

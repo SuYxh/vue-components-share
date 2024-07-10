@@ -5,11 +5,19 @@ import Message, { createMessage } from './components/Message';
 
 
 onMounted(() => {
-  createMessage({ message: 'hello world - 0', duration: 3000, showClose: true })
+  // createMessage({ message: 'hello world - 0', duration: 3000, showClose: true })
 
   // createMessage({ message: 'hello world - 1', duration: 3000, showClose: true })
   // createMessage({ message: 'hello world - 2', duration: 3000, showClose: true })
   // createMessage({ message: 'hello world - 3', duration: 3000, showClose: true })
+
+  // 测试手动删除
+  const instance = createMessage({ message: 'hello world - 4', duration: 5000, showClose: true })
+  setTimeout(() => {
+    instance.destory()
+  }, 2000);
+  createMessage({ message: 'hello world - 5', duration: 5000, showClose: true })
+
 })
 </script>
 

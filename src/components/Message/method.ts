@@ -9,17 +9,22 @@ let seed = 1
 const instances: MessageContext[] = shallowReactive([])
 
 export const createMessage = (props: CreateMessageProps) => {
-  console.log('createMessage 执行');
+  // console.log('createMessage 执行');
 
   const id = `message_${seed++}`
 
   const container = document.createElement('div')
 
   const destory = () => {
-    console.log('createMessage -- destory');
+    // console.log('createMessage -- destory');
+    // 删除数组中的实例
+    const idx = instances.findIndex(instance => instance.id === id)
+    if (idx === -1) return
+    instances.splice(idx, 1)
     render(null, container)
   }
 
+  // 手动删除，就是手动修改组件 visible 的值
   const manualDestroy = () => {
     const instance = instances.find(instance => instance.id === id)
     if (instance) {
@@ -36,14 +41,14 @@ export const createMessage = (props: CreateMessageProps) => {
   const vnode = h(MessageConstructor, newProps)
   console.log('vnode', vnode);
 
-  console.log('render-1');
+  // console.log('render-1');
   render(vnode, container)
-  console.log('render-2');
+  // console.log('render-2');
 
-  console.log('appendChild-1');
+  // console.log('appendChild-1');
   // 插入 dom 节点
   document.body.appendChild(container.firstElementChild!)
-  console.log('appendChild-2');
+  // console.log('appendChild-2');
 
   // vnode.component 这个获取到的是什么？
   const vm = vnode.component!
@@ -55,9 +60,9 @@ export const createMessage = (props: CreateMessageProps) => {
     destory: manualDestroy
   }
 
-  console.log('instances.push-1');
+  // console.log('instances.push-1');
   instances.push(instance)
-  console.log('instances.push-2');
+  // console.log('instances.push-2');
   return instance
 }
 
