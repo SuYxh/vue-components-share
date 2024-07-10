@@ -5,10 +5,11 @@ import Message, { createMessage } from './components/Message';
 
 
 onMounted(() => {
-  createMessage({ message: 'hello world - 1', duration: 3000, showClose: true })
-  createMessage({ message: 'hello world - 2', duration: 3000, showClose: true })
-  createMessage({ message: 'hello world - 3', duration: 3000, showClose: true })
+  createMessage({ message: 'hello world - 0', duration: 3000, showClose: true })
 
+  // createMessage({ message: 'hello world - 1', duration: 3000, showClose: true })
+  // createMessage({ message: 'hello world - 2', duration: 3000, showClose: true })
+  // createMessage({ message: 'hello world - 3', duration: 3000, showClose: true })
 })
 </script>
 

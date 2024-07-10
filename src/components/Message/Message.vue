@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+console.log('Message setup');
 import {
   ref,
   defineProps,
@@ -55,18 +56,27 @@ let timer: any;
 const messageRef = ref<HTMLDivElement>();
 
 const instance = getCurrentInstance()
-console.log('instance', instance);
+console.log('Message-instance', instance);
 
 const visible = ref(false);
 // 计算偏移高度
 // 这个 div 的高度
 const height = ref(0);
 // 上一个实例的最下面的坐标数字，第一个是 0
-const lastOffset = computed(() => getLastBottomOffset(props.id));
+const lastOffset = computed(() => {
+  console.log('computed--lastOffset');
+  return getLastBottomOffset(props.id)
+});
 // 这个元素应该使用的 top
-const topOffset = computed(() => props.offset + lastOffset.value);
+const topOffset = computed(() => {
+  console.log('computed--topOffset');
+  return props.offset + lastOffset.value
+});
 // 这个元素为下一个元素预留的 offset，也就是它最低端 bottom 的 值
-const bottomOffset = computed(() => height.value + topOffset.value);
+const bottomOffset = computed(() => {
+  console.log('computed--bottomOffset');
+  return height.value + topOffset.value
+});
 
 const cssStyle = computed(() => ({
   top: topOffset.value + "px",
@@ -90,6 +100,7 @@ watch(visible, (newVal) => {
 });
 
 onMounted(async () => {
+  console.log('Message onMounted');
   visible.value = true;
   startTimer();
   await nextTick()
