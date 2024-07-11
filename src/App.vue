@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, h } from 'vue';
 import Button from './components/Button/Button.vue'
 import Message, { createMessage } from './components/Message';
 
@@ -34,12 +34,15 @@ onMounted(() => {
   createMessage({ message: 'hello world - 10', duration: 3000, showClose: true })
   createMessage({ message: 'hello world - 11', duration: 4000, showClose: true, type: 'success' })
   createMessage({ message: 'hello world - 12', duration: 5000, showClose: true, type: 'danger' })
+
+  // 
+  createMessage({ message: h('b', 'hello world - 13'), duration: 4000, showClose: true, type: 'success' })
 })
 </script>
 
 <template>
   <main>
-    <Button ref="buttonRef" @click="handleClick">Test Button</Button>
+    <Button ref="buttonRef" @click="handleClick">Open Message</Button>
 
     <!-- <Message message="您有新的订单，请注意查收!" showClose /> -->
   </main>
