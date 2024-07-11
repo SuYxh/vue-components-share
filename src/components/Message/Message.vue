@@ -1,26 +1,32 @@
 <template>
-  <div
-    v-show="visible"
-    class="vk-message"
-    ref="messageRef"
-    :style="cssStyle"
-    role="alert"
-    :class="{
-      [`vk-message--${type}`]: type,
-      'is-close': showClose,
-    }"
-    @mouseenter="clearTimer"
-    @mouseleave="startTimer"
+  <Transition
+    :name="transitionName"
+    @after-leave="destroyComponent"
+    @enter="updateHeight"
   >
-    <div class="vk-message__content">
-      <slot>
-        <RenderVnode v-if="message" :vNode="message" />
-      </slot>
+    <div
+      v-show="visible"
+      class="vk-message"
+      ref="messageRef"
+      :style="cssStyle"
+      role="alert"
+      :class="{
+        [`vk-message--${type}`]: type,
+        'is-close': showClose,
+      }"
+      @mouseenter="clearTimer"
+      @mouseleave="startTimer"
+    >
+      <div class="vk-message__content">
+        <slot>
+          <RenderVnode v-if="message" :vNode="message" />
+        </slot>
+      </div>
+      <div class="vk-message__close" v-if="showClose">
+        <Icon @click.stop="visible = false" icon="xmark" />
+      </div>
     </div>
-    <div class="vk-message__close" v-if="showClose">
-      <Icon @click.stop="visible = false" icon="xmark" />
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -35,12 +41,12 @@ import {
   watch,
   computed,
   nextTick,
-  getCurrentInstance
+  getCurrentInstance,
 } from "vue";
 import RenderVnode from "../Common/RenderVnode";
 import Icon from "../Icon/Icon.vue";
 import { getLastBottomOffset } from "./method";
-import useEventListener from './useEventListener';
+import useEventListener from "./useEventListener";
 import type { MessageProps } from "./types";
 
 defineOptions({
@@ -52,13 +58,14 @@ const props = withDefaults(defineProps<MessageProps>(), {
   type: "info",
   duration: 3000,
   offset: 20,
+  transitionName: "fade-up",
 });
 
 let timer: any;
 
 const messageRef = ref<HTMLDivElement>();
 
-const instance = getCurrentInstance()
+const instance = getCurrentInstance();
 // console.log('Message-instance', instance);
 
 const visible = ref(false);
@@ -68,26 +75,26 @@ const height = ref(0);
 // 上一个实例的最下面的坐标数字，第一个是 0
 const lastOffset = computed(() => {
   // console.log('computed--lastOffset');
-  return getLastBottomOffset(props.id)
+  return getLastBottomOffset(props.id);
 });
 // 这个元素应该使用的 top
 const topOffset = computed(() => {
   // console.log('computed--topOffset');
-  return props.offset + lastOffset.value
+  return props.offset + lastOffset.value;
 });
 // 这个元素为下一个元素预留的 offset，也就是它最低端 bottom 的 值
 const bottomOffset = computed(() => {
   // console.log('computed--bottomOffset');
-  return height.value + topOffset.value
+  return height.value + topOffset.value;
 });
 
 const cssStyle = computed(() => ({
   top: topOffset.value + "px",
-  zIndex: props.zIndex
+  zIndex: props.zIndex,
 }));
 
 function clearTimer() {
-  clearTimeout(timer)
+  clearTimeout(timer);
 }
 
 function startTimer() {
@@ -101,32 +108,36 @@ function destroyComponent() {
   props.onDestory();
 }
 
-watch(visible, (newVal) => {
-  if (!newVal) {
-    destroyComponent();
-  }
-});
+function updateHeight() {
+  height.value = messageRef.value!.getBoundingClientRect().height;
+}
+
+// watch(visible, (newVal) => {
+//   if (!newVal) {
+//     destroyComponent();
+//   }
+// });
 
 function keydown(e: Event) {
-  const event = e as KeyboardEvent
-  if (event.code === 'Escape') {
-    visible.value = false
+  const event = e as KeyboardEvent;
+  if (event.code === "Escape") {
+    visible.value = false;
   }
 }
-useEventListener(document, 'keydown', keydown)
 
+useEventListener(document, "keydown", keydown);
 
 onMounted(async () => {
   // console.log('Message onMounted');
   visible.value = true;
   startTimer();
-  await nextTick()
-  height.value = messageRef.value!.getBoundingClientRect().height
+  // await nextTick();
+  // height.value = messageRef.value!.getBoundingClientRect().height;
   // console.log('height.value', height.value);
 });
 
 defineExpose({
   bottomOffset,
-  visible
-})
+  visible,
+});
 </script>

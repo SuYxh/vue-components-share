@@ -11,6 +11,7 @@ export interface MessageProps {
 
   zIndex: number
   offset?: number;
+  transitionName?: string;
 }
 
 export interface MessageContext {

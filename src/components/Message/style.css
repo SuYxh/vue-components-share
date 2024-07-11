@@ -52,3 +52,9 @@
     }
   }
 }
+
+.vk-message.fade-up-enter-from,
+.vk-message.fade-up-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}

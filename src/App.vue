@@ -3,6 +3,10 @@ import { onMounted } from 'vue';
 import Button from './components/Button/Button.vue'
 import Message, { createMessage } from './components/Message';
 
+const handleClick = () => {
+  createMessage({ message: 'hello world-13', duration: 6000, showClose: true })
+}
+
 
 onMounted(() => {
   // createMessage({ message: 'hello world - 0', duration: 3000, showClose: true })
@@ -24,13 +28,18 @@ onMounted(() => {
   // createMessage({ message: 'hello world - 8', duration: 0, showClose: true })
 
   // 测试鼠标移入
-  createMessage({ message: 'hello world - 9', duration: 1000, showClose: true })
+  // createMessage({ message: 'hello world - 9', duration: 1000, showClose: true })
+
+  // 测试动画
+  createMessage({ message: 'hello world - 10', duration: 3000, showClose: true })
+  createMessage({ message: 'hello world - 11', duration: 4000, showClose: true, type: 'success' })
+  createMessage({ message: 'hello world - 12', duration: 5000, showClose: true, type: 'danger' })
 })
 </script>
 
 <template>
   <main>
-    <Button ref="buttonRef">Test Button</Button>
+    <Button ref="buttonRef" @click="handleClick">Test Button</Button>
 
     <!-- <Message message="您有新的订单，请注意查收!" showClose /> -->
   </main>
